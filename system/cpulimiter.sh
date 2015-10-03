@@ -11,10 +11,10 @@ fi
 if [[ $1 == "install" ]] ; then
   sudo apt-get install cpulimit gawk
   cd
-  wget http://dl.dropbox.com/u/6864546/cpulimit.tar.gz
-  tar xzvf cpulimit.tar.gz
-
+  mkdir cpulimit
   cd cpulimit
+  wget https://raw.githubusercontent.com/sicambria/sh/master/system/cpulimit/cpulimit
+  wget https://raw.githubusercontent.com/sicambria/sh/master/system/cpulimit/cpulimit_daemon.sh
 
   # Limit any process to use maximum 80% of a single CPU core
   # Use 1 core fully = 100%
