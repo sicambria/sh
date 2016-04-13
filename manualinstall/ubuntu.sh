@@ -63,15 +63,10 @@ yes | sudo add-apt-repository ppa:ubuntu-wine/ppa
 # Ubuntu Tweak telepítése
 yes | sudo add-apt-repository ppa:tualatrix/ppa
 
-# Gnomebaker CD/DVD író program - GnomeBaker CD/DVD writer
-yes | sudo add-apt-repository ppa:gnomebaker/stable
-
-
 # INSTALL FROM EXTRA REPOSITORIES
 sudo apt-get update
 sudo apt-get install -y google-chrome-stable
 sudo apt-get install -y ubuntu-tweak
-sudo apt-get install -y gnomebaker
 sudo apt-get install -y playonlinux winetricks wine1.7
 
 # Apport letiltása - megszűnnek a bosszantó rendszerösszeomlás-jelentések
