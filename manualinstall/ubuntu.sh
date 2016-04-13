@@ -1,6 +1,9 @@
 #!/bin/sh
 
-# Install common Linux applications to Ubuntu
+echo "Install common Linux applications to Ubuntu"
+cd
+cd Letöltések
+cd Downloads
 
 #+SYSTEM
 sudo apt-get install -y gmountiso p7zip rar lame xfburn
@@ -32,12 +35,14 @@ sudo apt-get install -y gdebi
 sudo gdebi --n skype.deb
 
 # Skype magyar nyelvi fájl telepítése
-cd
-cd Letöltések
-cd Downloads
 wget http://urbalazs.hu/blog/uploads/skype_hu_4.3.0.37.tar.gz
 sudo tar -C /usr/share/skype/lang -xzf skype_hu_4.3.0.37.tar.gz
 
+# Audex Hang CD átalakító program  - Audex CD ripper application:
+sudo apt-get install -y audex
+
+# Nem szükséges programok eltávolítása -  Remove unneeded apps - OPTIONAL
+sudo apt-get purge -y brasero
 
 # Install Chromium + default incognito mode
 sudo apt-get install -y chromium-browser
@@ -64,16 +69,10 @@ yes | sudo add-apt-repository ppa:gnomebaker/stable
 
 # INSTALL FROM EXTRA REPOSITORIES
 sudo apt-get update
-sudo apt-get install -y playonlinux winetricks wine1.7
 sudo apt-get install -y google-chrome-stable
 sudo apt-get install -y ubuntu-tweak
-sudo apt-get install -y gnomebaker 
-
-# Audex Hang CD átalakító program  - Audex CD ripper application:
-sudo apt-get install -y audex
-
-# Nem szükséges programok eltávolítása -  Remove unneeded apps - OPTIONAL
-sudo apt-get purge -y brasero
+sudo apt-get install -y gnomebaker
+sudo apt-get install -y playonlinux winetricks wine1.7
 
 # Apport letiltása - megszűnnek a bosszantó rendszerösszeomlás-jelentések
 # Disable apport - remove annoying system crash messages
@@ -103,18 +102,13 @@ sudo apt-get install -y mumble
 sudo perl -pi -e 's?<mime-type type="application/vnd.adobe.flash.movie">?<mime-type type="application/x-shockwave-flash">?g' /usr/share/mime/packages/freedesktop.org.xml
 sudo update-mime-database /usr/share/mime
 
-
 # Installing MATE in Ubuntu 14.04 LTS
-sudo apt-add-repository ppa:ubuntu-mate-dev/ppa
-sudo apt-add-repository ppa:ubuntu-mate-dev/trusty-mate
+yes | sudo apt-add-repository ppa:ubuntu-mate-dev/ppa
+yes | sudo apt-add-repository ppa:ubuntu-mate-dev/trusty-mate
 sudo apt-get update && sudo apt-get upgrade
 sudo apt-get install --no-install-recommends ubuntu-mate-core ubuntu-mate-desktop
 
 # TEAMVIEWER - Távsegítség program telepítése - REMOTE HELP
-cd
-cd Letöltések
-cd Downloads
 wget http://download.teamviewer.com/download/teamviewer_i386.deb
 sudo apt-get install -y gdebi
 sudo gdebi --n teamviewer_i386.deb
-
