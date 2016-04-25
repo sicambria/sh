@@ -24,6 +24,7 @@ then
   sudo rm -rf .bundler
   sudo userdel -r postgres
   sudo groupdel postgres
+  sudo apt-get -y autoremove
   exit 0
 fi
 
