@@ -1,6 +1,9 @@
 #!/bin/bash
 sudo echo "Setting up Loomio development environment for Ubuntu 14.04 x64"
+sudo apt-get install -y wget
+sudo apt-get install -y git-core 
 
+# Add PostgreSQL repository
 sudo add-apt-repository "deb https://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main"
 wget --quiet -O - https://postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
 
@@ -8,9 +11,11 @@ wget --quiet -O - https://postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key 
 yes | sudo apt-add-repository ppa:brightbox/ruby-ng
 sudo apt-get update
 
-sudo apt-get install -y git-core postgresql-9.4 postgresql-contrib-9.4 build-essential \
-                       libssl-dev libpq-dev libffi-dev libmagickwand-dev \
-                       libreadline-gplv2-dev nodejs imagemagick wget npm libssl-dev libreadline-dev zlib1g-dev
+sudo apt-get install -y postgresql-9.4 postgresql-contrib-9.4  
+sudo apt-get install -y libreadline-gplv2-dev 
+sudo apt-get install -y build-essential 
+sudo apt-get install -y libssl-dev libpq-dev libffi-dev libmagickwand-dev
+sudo apt-get install -y nodejs npm imagemagick libssl-dev libreadline-dev zlib1g-dev
 sudo apt-get install -y rbenv rake ruby2.3 ruby2.3-dev ruby-railties-4.0 libsqlite3-dev
 
 git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
@@ -42,6 +47,7 @@ git remote add github git@github.com:loomio/loomio.git
 echo
 echo "GEMS"
 sudo gem install bundler
+sudo gem install rake
 bundle install
 rbenv rehash
 rake bootstrap
@@ -52,5 +58,5 @@ echo
 whoami > /tmp/whoami.log
 sudo -i -u postgres
 createuser -s `cat /tmp/whoami.log`
-echo "CONTINUE with loomio1404-dev2.sh"
+echo "CONTINUE with loomio1404-dev2.sh IF database user has been sucessfully created."
 exit
