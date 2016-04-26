@@ -1,6 +1,16 @@
 #!/bin/bash
 echo "PART 2 - Setting up Loomio development environment for Ubuntu 14.04 x64"
 
+echo "Install GEMS"
+cd ~/projects/loomio
+sudo gem install bundler
+sudo gem install rake
+bundle install
+
+sudo npm install -g bower
+sudo npm install -g gulp
+sudo npm install -g gulp-sass --save-dev
+
 cd ~/projects/loomio
 bundle install
 cp config/database.example.yml config/database.yml
@@ -23,6 +33,7 @@ echo "localhost address for Loomio: http://localhost:3000"
 echo "To create a sample discussion, run: localhost:3000/development/setup_discussion"
 
 cd ~/projects/loomio/angular
+sudo npm install
 gulp dev
 
 # If you have an issue with gulp, then run these 2 commands, then run this script again:
