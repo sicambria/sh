@@ -1,10 +1,10 @@
 #!/bin/bash
-echo "Purge FULL Loomio/Ruby/NPM development environment (Ubuntu 14.04 x64)"
+echo "Purge FULL Loomio/Ruby/NPM/PostgreSQL development environment (Ubuntu 14.04 x64)"
 read -p "Are you sure? (Y/N)" -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-  sudo apt-get purge -y git-core postgresql-9.4 postgresql-contrib-9.4 build-essential \
+  sudo apt-get purge -y postgresql-9.4 postgresql-contrib-9.4 build-essential \
                      libssl-dev libpq-dev libffi-dev libmagickwand-dev \
                      libreadline-gplv2-dev nodejs imagemagick
   sudo apt-get purge -y libssl-dev libreadline-dev zlib1g-dev
