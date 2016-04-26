@@ -35,28 +35,86 @@ git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-bu
 
 rbenv install 2.3.0
 rbenv global 2.3.0
+rbenv rehash
+
+# Symlink NodeJS
+sudo ln -s /usr/bin/nodejs /usr/bin/node
 
 echo
+echo "Setup your database"
+echo
+whoami > /tmp/whoami.log
+sudo -u postgres psql -c "CREATE USER `cat /tmp/whoami.log` WITH PASSWORD '';"
+sudo -u postgres psql -c "ALTER USER `cat /tmp/whoami.log` CREATEDB;"
+
+#GRANT ALL PRIVILEGES ON  DATABASE database_name to new_user;
+#ALTER DATABASE database_name owner to new_user;
+
+echo 'There should be an Error message that the user already exists:'
+echo
+sudo -u postgres psql -c "CREATE USER `cat /tmp/whoami.log` WITH PASSWORD '';"
+
+# Enable DB access:
+sudo perl -pi -e 's?peer?trust?g' /etc/postgresql/9.4/main/pg_hba.conf
+sudo service postgresql restart
+
+#Alternative way:
+#echo 'OR Run this command: createuser -s YOUR_USERNAME'
+#echo 'Then type exit.'
+#sudo -i -u postgres
+#createuser -s `cat /tmp/whoami.log`
+#exit
+
 echo "CLONING LOOMIO"
 
 mkdir ~/projects
 git clone https://github.com/loomio/loomio.git ~/projects/loomio
 cd ~/projects/loomio
 git remote add github git@github.com:loomio/loomio.git
-
 echo
-echo "GEMS"
+
+echo "Install GEMS"
+cd ~/projects/loomio
 sudo gem install bundler
 sudo gem install rake
 bundle install
-rbenv rehash
-rake bootstrap
+
+sudo npm install -g bower
+sudo npm install -g gulp
+npm install gulp-sass --save-dev
+
+
+########################################################################
+########################################################################
+# IF you get an error, copy-paste and run these commands again manually:
+########################################################################
+########################################################################
+cd ~/projects/loomio
+bundle install
+cp config/database.example.yml config/database.yml
+bundle exec rake db:setup
+
+sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE loomio_development to `cat /tmp/whoami.log` ;"
+sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE loomio_test to `cat /tmp/whoami.log` ;"
+sudo su postgres -c "psql loomio_development -c 'CREATE EXTENSION hstore;'"
+sudo su postgres -c "psql loomio_test -c 'CREATE EXTENSION hstore;'"
+
+bundle exec rake db:setup
+bundle exec rake bootstrap > log_rake_bootstrap.log
+grep 'Created user with email' log_rake_bootstrap.log > password.txt
+
+echo "LOOMIO LOGIN:"
+cat password.txt
 
 echo
-echo "Setup your database"
-echo
-whoami > /tmp/whoami.log
-sudo -i -u postgres
-createuser -s `cat /tmp/whoami.log`
-echo "CONTINUE with loomio1404-dev2.sh IF database user has been sucessfully created."
-exit
+echo "You should now be able to browse to your localhost Loomio: http://localhost:3000"
+echo "To create a sample discussion, run: localhost:3000/development/setup_discussion"
+
+cd ~/projects/loomio/angular
+gulp dev
+# If you have an issue with gulp, then run these 2 commands, then run this script again:
+# cd
+# rm -rf .npm
+
+# Start server:
+# rails s
