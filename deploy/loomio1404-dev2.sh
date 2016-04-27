@@ -34,9 +34,14 @@ echo "To create a sample discussion, run: localhost:3000/development/setup_discu
 
 cd ~/projects/loomio/angular
 sudo npm install
+
+echo
+echo 'Open a new terminal, go to loomio folder and run "rails s" to start the server.'
+echo
+# This will block the terminal. 
 gulp dev
 
-# If you have an issue with gulp, then run these 2 commands, then run this script again:
+# If gulp fails to start, then run these 2 commands, then run this script again:
 # cd
 # rm -rf .npm
 
