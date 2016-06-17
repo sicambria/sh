@@ -1,7 +1,7 @@
 #!/bin/bash
-echo "Turn ON _Run command as a login shell_ in Terminal/Edit/Profile preferences/[Title and ]Command"
+sudo echo "Turn ON _Run command as a login shell_ in Terminal/Edit/Profile preferences/[Title and ]Command"
 echo
-read -p "Have you done this step **AND** opened a new terminal? <y/N> " prompt
+read -p "Have you done this step before _AND_ opened a new terminal? <y/N> " prompt
 if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
 then
     gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
