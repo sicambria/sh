@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 echo "Purge old kernels? Press CTRL-C to STOP or ENTER to continue."
 read
 echo "START DRY RUN"
